@@ -16,7 +16,7 @@ const { Pool } = require('pg')
 
 
 var connectionString =
-    'postgres://shoizafidgsclk:5aa84844e16bc84b3b49e67a16e339957d289abafdcdf3ad3f48d1c2b4b2cccf@ec2-174-129-255-35.compute-1.amazonaws.com:5432/d7fu349nrp13qh'
+    'postgres://vlnskfuqajnwnh:f5fb05dbf5014ff0bac1bd433f96d8cc37ff335db55ec216c2eee737ab943bf0@ec2-34-254-69-72.eu-west-1.compute.amazonaws.com:5432/dfpcehagdn9kb1'
 
 app.use(cors());
 
@@ -287,7 +287,7 @@ app.get('/admin', function (req, res) {
 });
 
 //rest api to authen
-app.get('/detail', function (req, res) {
+app.get('/detail/', function (req, res) {
     
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", true);
