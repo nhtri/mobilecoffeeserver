@@ -325,4 +325,18 @@ app.delete('/device/:id', function (req, res) {
     });
 });
 
+app.put('/updateDevice/', function (req, res) {
+    var postData = req.body;
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+
+    pool.query('UPDATE mobilephone SET category=($1),summary=($2),details=($3),price=($4),image1=($5),image2=($6),video=($7),image3=($8),image4=($9),image5=($10),image6=($11),name=($12),remarks=($13),guarantee=($14),email=($15) where id=($16)', postData, function (error, results, fields) {
+        if (error) throw error;
+        res.end(JSON.stringify(results.rows));
+    });
+});
+
+
 
