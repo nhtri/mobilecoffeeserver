@@ -301,7 +301,7 @@ app.get('/detail/', function (req, res) {
 });
 
 
-app.get('/device/:id', function (req, res) {
+app.get('/detail/:id', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
