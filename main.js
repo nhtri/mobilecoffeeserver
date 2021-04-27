@@ -300,6 +300,19 @@ app.get('/detail/', function (req, res) {
     });
 });
 
+
+app.get('/device/:id', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+
+    pool.query('select * FROM mobilephone WHERE id = $1', [req.params.id], function (error, results) {
+        if (error) throw error;
+        res.end(JSON.stringify(results.rows));
+    });
+});
+
 app.post('/device/', function (req, res) {
     var postData = req.body;
     res.header("Access-Control-Allow-Origin", "*");
