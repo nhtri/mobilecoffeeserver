@@ -56,111 +56,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 var server = app.listen(process.env.PORT || 3001);
 
-//rest api to get all results
-app.get('/wifi', function (req, res) {
-    console.log(req);
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('select * from wifi', function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
-
-//rest api to get all results congtacvien
-app.get('/congtacvien', function (req, res) {
-    console.log(req);
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('select * from congtacvien', function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
-
-//rest api to get all account results
-app.get('/account', function (req, res) {
-    console.log(req);
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('select * from account', function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
-
-app.get('/wifi/old', function (req, res) {
-    console.log(req);
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('select * from wifi where trangthai=false', function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
-
-//rest api to get a single employee data
-//app.get('/wifi/:MaWiFi', function (req, res) {
-//    pool.query('SELECT * FROM `wifi` WHERE `MaWiFi`=?', [req.params.MaWiFi], function (error, results, fields) {
-//        if (error) throw error;
-//        res.end(JSON.stringify(results.rows));
-//    });
-//});
-
-//rest api to create a new record into mysql database
-app.post('/wifi/', function (req, res) {
-    var postData = req.body;
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('INSERT INTO wifi VALUES ($1, $2, $3, $4, $5,$6, $7, $8, $9, $10, $11, $12,$13,$14,$15,$16,$17)', postData, function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
 
 
-//rest api to create a new record into mysql database
-app.post('/congtacvien/', function (req, res) {
-    var postData = req.body;
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('INSERT INTO congtacvien VALUES ($1, $2, $3, $4)', postData, function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
-
-//rest api to create a new account record into mysql database
-app.post('/account/', function (req, res) {
-    var postData = req.body;
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('INSERT INTO account VALUES ($1, $2, $3, $4, $5,$6, $7, $8, $9, $10, $11, $12,$13,$14,$15,$16,$17)', postData, function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
 
 //rest api to delete a record in mysql database
 app.delete('/wifi/:mawifi', function (req, res) {
@@ -346,6 +243,19 @@ app.put('/updateDevice/', function (req, res) {
     res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
     pool.query('UPDATE mobilephone SET category=($1),summary=($2),details=($3),price=($4),image1=($5),image2=($6),video=($7),image3=($8),image4=($9),image5=($10),image6=($11),name=($12),remarks=($13),guarantee=($14),email=($15) where id=($16)', postData, function (error, results, fields) {
+        if (error) throw error;
+        res.end(JSON.stringify(results.rows));
+    });
+});
+
+app.put('/updateDeviceStatus/', function (req, res) {
+    var postData = req.body;
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+
+    pool.query('UPDATE mobilephone SET active=($1) where id=($2)', postData, function (error, results, fields) {
         if (error) throw error;
         res.end(JSON.stringify(results.rows));
     });
