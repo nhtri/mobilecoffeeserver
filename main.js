@@ -217,7 +217,7 @@ app.post('/device/', function (req, res) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
-    pool.query('INSERT INTO mobilephone VALUES ($1, $2, $3, $4, $5,$6, $7, $8, $9, $10, $11, DEFAULT,$12,$13,$14,$15)', postData, function (error, results, fields) {
+    pool.query('INSERT INTO mobilephone VALUES ($1, $2, $3, $4, $5,$6, $7, $8, $9, $10, $11, DEFAULT,$12,$13,$14,$15,$16,$17,$18,$19,$20)', postData, function (error, results, fields) {
         if (error) throw error;
         res.end(JSON.stringify(results.rows));
     });
@@ -242,7 +242,7 @@ app.put('/updateDevice/', function (req, res) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
-    pool.query('UPDATE mobilephone SET category=($1),summary=($2),details=($3),price=($4),image1=($5),image2=($6),video=($7),image3=($8),image4=($9),image5=($10),image6=($11),name=($12),remarks=($13),guarantee=($14),email=($15) where id=($16)', postData, function (error, results, fields) {
+    pool.query('UPDATE mobilephone SET category=($1),summary=($2),details=($3),price=($4),image1=($5),image2=($6),video=($7),image3=($8),image4=($9),image5=($10),image6=($11),name=($12),remarks=($13),guarantee=($14),email=($15),active=($16),image7=($17),image8=($18),image9=($19),image10=($20) where id=($21)', postData, function (error, results, fields) {
         if (error) throw error;
         res.end(JSON.stringify(results.rows));
     });
