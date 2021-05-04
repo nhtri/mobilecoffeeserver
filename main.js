@@ -59,87 +59,13 @@ var server = app.listen(process.env.PORT || 3001);
 
 
 
-//rest api to delete a record in mysql database
-app.delete('/wifi/:mawifi', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('DELETE FROM wifi WHERE mawifi = $1', [req.params.mawifi], function (error, results) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
-
-//rest api to delete congtacvien a record in mysql database
-app.delete('/congtacvien/:hoten', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('DELETE FROM congtacvien WHERE hoten = $1', [req.params.hoten], function (error, results) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
 
 
-//rest api to update record into mysql database
-app.put('/wifi/', function (req, res) {
-    var postData = req.body;
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
-    pool.query('UPDATE wifi SET ngaythue=($1),ngaytra=($2),thangdongcuoc=($3),giacuoc=($4),facebook=($5),trangthai=($6),diachi=($7),hoten=($8),ghichu=($9),sdtsim=($10),masim=($11),trangthai_kh=($12),namdongcuoc=($13),thanhtoan=($14),congtacvien=($15),trangthaiwifi=($16) where mawifi=($17)', postData, function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
 
-//rest api to update record into mysql database
-app.put('/wificongtacvien/', function (req, res) {
-    var postData = req.body;
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
-    pool.query('UPDATE wifi SET congtacvien=($1) where mawifi=($2)', postData, function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
 
-app.put('/wifitamngung/', function (req, res) {
-    var postData = req.body;
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
-    pool.query('UPDATE wifi SET trangthai_kh=($1) where mawifi=($2)', postData, function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
-
-//rest api to update record into mysql database
-app.put('/wifithanhtoan/', function (req, res) {
-    var postData = req.body;
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-    pool.query('UPDATE wifi SET thanhtoan=($1) where mawifi=($2)', postData, function (error, results, fields) {
-        if (error) throw error;
-        res.end(JSON.stringify(results.rows));
-    });
-});
 
 //rest api to update record into mysql database
 app.put('/account/', function (req, res) {
@@ -256,6 +182,20 @@ app.put('/updateDeviceStatus/', function (req, res) {
     res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
     pool.query('UPDATE mobilephone SET active=($1) where id=($2)', postData, function (error, results, fields) {
+        if (error) throw error;
+        res.end(JSON.stringify(results.rows));
+    });
+});
+
+//rest api to authen
+app.get('/detailLess/', function (req, res) {
+    
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json");
+    console.log(req);
+	pool.query('select id, category, name, image1, price, active, summary from mobilephone ORDER BY summary ', function (error, results, fields) {
         if (error) throw error;
         res.end(JSON.stringify(results.rows));
     });
